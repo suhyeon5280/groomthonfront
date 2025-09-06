@@ -25,7 +25,6 @@
       overflow: hidden;
     }
 
-    /* 상단 */
     header {
       display: flex;
       align-items: center;
@@ -44,7 +43,6 @@
       color: #000;
     }
 
-    /* 콘텐츠 */
     .content {
       flex: 1;
       overflow-y: auto;
@@ -79,199 +77,57 @@
       margin-bottom: 12px;
     }
 
-    /* 토글 스위치 */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 24px;
-      margin-left: 8px;
-    }
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; margin-left: 8px; }
     .switch input { display: none; }
     .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #ccc;
-      border-radius: 24px;
-      transition: .3s;
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc; border-radius: 24px; transition: .3s;
     }
     .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      border-radius: 50%;
-      transition: .3s;
+      position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+      background-color: white; border-radius: 50%; transition: .3s;
     }
-    input:checked + .slider {
-      background-color: #1ec800;
-    }
-    input:checked + .slider:before {
-      transform: translateX(20px);
-    }
+    input:checked + .slider { background-color: #1ec800; }
+    input:checked + .slider:before { transform: translateX(20px); }
 
-    /* 업로드 */
-    .upload {
-      border: 1px dashed #ccc;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      margin: 12px 0;
-      color: #888;
-      cursor: pointer;
-    }
+    .upload { border: 1px dashed #ccc; padding: 20px; border-radius: 12px; text-align: center; margin: 12px 0; color: #888; cursor: pointer; }
 
-    /* 토글 버튼 그룹 */
-    .toggle-group {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+    .toggle-group { display: flex; gap: 8px; margin-bottom: 12px; }
     .toggle-btn {
-      flex: 1;
-      padding: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      background: #fff;
-      font-size: 13px;
-      cursor: pointer;
-      text-align: center;
+      flex: 1; padding: 10px 0; border: 1px solid #ccc; border-radius: 20px;
+      background: #fff; font-size: 13px; cursor: pointer; text-align: center;
     }
-    .toggle-btn.active {
-      background: #000;
-      color: #fff;
-      border-color: #000;
-    }
+    .toggle-btn.active { background: #000; color: #fff; border-color: #000; }
 
-    /* 체크박스 */
-    .checkbox-group {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 12px;
-      font-size: 13px;
-      color: #333;
-    }
+    .checkbox-group { display: flex; gap: 12px; margin-bottom: 12px; font-size: 13px; color: #333; }
 
-    /* 숙소 카드 (OFF 시) */
-    .card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-    .thumbnail {
-      height: 120px;
-      background: #ddd;
-    }
-    .card-body {
-      padding: 12px;
-    }
-    .card-body h4 {
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-    .card-body p {
-      font-size: 13px;
-      color: #555;
-      margin-bottom: 4px;
-    }
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 12px;
-      border-top: 1px solid #eee;
-    }
-    .btn-detail {
-      padding: 6px 10px;
-      font-size: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #fff;
-      cursor: pointer;
-    }
-    .btn-select {
-      padding: 6px 12px;
-      font-size: 13px;
-      border-radius: 6px;
-      border: none;
-      background: #1ec800;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .btn-select.selected {
-      background: #555;
-    }
+    .card { background: #fff; border: 1px solid #eee; border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+    .thumbnail { height: 120px; background: #ddd; }
+    .card-body { padding: 12px; }
+    .card-body h4 { font-size: 14px; font-weight: bold; margin-bottom: 6px; }
+    .card-body p { font-size: 13px; color: #555; margin-bottom: 4px; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-top: 1px solid #eee; }
+    .btn-detail { padding: 6px 10px; font-size: 12px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; }
+    .btn-select { padding: 6px 12px; font-size: 13px; border-radius: 6px; border: none; background: #1ec800; color: #fff; font-weight: bold; cursor: pointer; }
+    .btn-select.selected { background: #555; }
 
-    /* 하단 버튼 */
-    .bottom-bar {
-      padding: 16px;
-      border-top: 1px solid #eee;
-      background: #fff;
-    }
-    .btn-submit {
-      width: 100%;
-      background: #1ec800;
-      color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 15px;
-      cursor: pointer;
-    }
+    .bottom-bar { padding: 16px; border-top: 1px solid #eee; background: #fff; }
+    .btn-submit { width: 100%; background: #1ec800; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: bold; font-size: 15px; cursor: pointer; }
 
-    /* ✅ 팝업 모달 */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      justify-content: center;
-      align-items: center;
-    }
-    .popup-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      width: 260px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .popup-content p {
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-    .popup-content button {
-      background: #1ec800;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+    .popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; }
+    .popup-content { background: #fff; padding: 20px; border-radius: 12px; text-align: center; width: 260px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .popup-content p { font-size: 15px; margin-bottom: 12px; }
+    .popup-content button { background: #1ec800; border: none; color: #fff; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
   </style>
 </head>
 <body>
   <div class="app">
-    <!-- 상단 -->
     <header>
       <a href="recruit.html" class="back">←</a>
       공고 등록
     </header>
 
-    <!-- 콘텐츠 -->
     <div class="content">
-      <!-- 숙소 제공 -->
       <div class="section">
         <h3>숙소</h3>
         <label>
@@ -283,7 +139,6 @@
         </label>
       </div>
 
-      <!-- 숙소 입력 (ON 상태일 때) -->
       <div id="accommodationForm">
         <div class="section">
           <label>숙소 이미지 업로드</label>
@@ -316,7 +171,6 @@
         </div>
       </div>
 
-      <!-- 숙소 제휴 리스트 (OFF 상태일 때) -->
       <div id="accommodationList" style="display:none;">
         <div class="card">
           <div class="thumbnail">
@@ -335,13 +189,11 @@
       </div>
     </div>
 
-    <!-- 하단 버튼 -->
     <div class="bottom-bar">
       <button class="btn-submit" onclick="submitPost()">게시물 등록</button>
     </div>
   </div>
 
-  <!-- ✅ 팝업 모달 -->
   <div id="popup" class="popup">
     <div class="popup-content">
       <p id="popupMessage">게시물이 등록되었습니다!</p>
@@ -350,6 +202,29 @@
   </div>
 
   <script>
+    let currentJobId;
+
+    // 페이지 로드 시 ID 가져오기
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      currentJobId = urlParams.get('id');
+
+      if (!currentJobId) {
+        currentJobId = localStorage.getItem('currentJobId');
+      }
+      if (!currentJobId) {
+        currentJobId = sessionStorage.getItem('currentJobId');
+      }
+      if (!currentJobId) {
+        console.error("Job ID를 찾을 수 없습니다!");
+        showPopup("공고 정보를 찾을 수 없습니다. 다시 등록해주세요.");
+        window.location.href = "recruit.html";
+        return;
+      }
+
+      console.log("현재 Job ID:", currentJobId);
+    };
+
     function toggleAccommodation() {
       const toggle = document.getElementById("accommodationToggle");
       const form = document.getElementById("accommodationForm");
@@ -390,6 +265,11 @@
     }
 
     function submitPost() {
+      if (!currentJobId) {
+        showPopup("공고 ID를 찾을 수 없습니다. 다시 시도해주세요.");
+        return;
+      }
+
       const hoteltype = document.querySelector(".toggle-group .toggle-btn.active")?.innerText || "";
       const canSmoke = document.getElementById("nonSmoking").checked;
       const wantbreackfast = document.getElementById("breakfast").checked;
@@ -404,27 +284,26 @@
         price: hotelPrice
       };
 
-      // ✅ URL 파라미터에서 id 추출
-      const urlParams = new URLSearchParams(window.location.search);
-      const jobId = urlParams.get("id");
+      console.log("전송할 데이터:", postData);
+      console.log("사용할 Job ID:", currentJobId);
 
-      fetch(`http://localhost:8080/api/jobs/${jobId}/hotel`, {
+      fetch(`http://localhost:8080/api/jobs/${currentJobId}/hotel`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData)
       })
-        .then(res => {
-          if (!res.ok) throw new Error("서버 오류");
-          return res.json();
-        })
-        .then(data => {
-          console.log("서버 응답:", data);
-          showPopup("숙소 정보가 등록되었습니다!");
-        })
-        .catch(err => {
-          console.error(err);
-          showPopup("등록 실패");
-        });
+      .then(res => {
+        if (!res.ok) throw new Error("서버 오류");
+        return res.json();
+      })
+      .then(data => {
+        console.log("서버 응답:", data);
+        showPopup("숙소 정보가 등록되었습니다!");
+      })
+      .catch(err => {
+        console.error(err);
+        showPopup("등록 실패");
+      });
     }
   </script>
 </body>
