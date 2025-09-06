@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>내 근처 패키지</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* 아이폰 화면 */
+    .app {
+      width: 390px;
+      height: 844px;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 상단 */
+    header {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 20px;
+      flex-shrink: 0;
+    }
+
+    .filters {
+      display: flex;
+      gap: 6px;
+      padding: 0 20px 10px;
+      flex-shrink: 0;
+    }
+    .filters button {
+      flex: 1;
+      padding: 6px 0;         /* 버튼 높이 줄임 */
+      border: 1px solid #ccc;
+      border-radius: 14px;    /* 더 작게 */
+      font-size: 12px;        /* 글자 크기도 작게 */
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* 콘텐츠 (스크롤 가능) */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      background: #f7f7f7;
+      padding-bottom: 80px; /* 네비+FAB 공간 */
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      margin: 10px 20px;
+      overflow: hidden;
+      border: 1px solid #eee;
+    }
+    .thumbnail {
+      height: 120px;
+      background-size: cover;
+      background-position: center;
+    }
+    .card-body {
+      padding: 12px;
+    }
+    .card-body .top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 6px;
+    }
+    .card-body h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .card-body p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 2px;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+    }
+
+    /* 버튼 공통 */
+    .btn-detail {
+      flex: 1;
+      background: #1ec800;
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-right: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      background: #fff;
+      font-size: 18px;
+      line-height: 34px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* 하단 네비게이션 */
+    nav {
+      height: 70px;
+      border-top: 1px solid #eee;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    nav a {
+      text-align: center;
+      font-size: 12px;
+      color: #333;
+      text-decoration: none;
+    }
+    nav a span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: absolute;
+      bottom: 90px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #1ec800;
+      color: #fff;
+      font-size: 32px;
+      line-height: 56px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 상단 -->
+    <header>내 근처 패키지</header>
+    <div class="filters">
+      <button>경기도 용인시 ▼</button>
+      <button>전체 ▼</button>
+    </div>
+
+    <!-- 콘텐츠 (스크롤 영역) -->
+    <div class="content" id="job-list">
+      <!-- 기존 카드들 -->
+      <div class="card">
+        <div class="thumbnail" style="background-image: url('image/apple.jpg');"></div>
+        <div class="card-body">
+          <div class="top">
+            <span>구름농원</span>
+            <span>#농가</span>
+          </div>
+          <h2>사과 수확 보조 (1주)</h2>
+          <p>12,000원/시간</p>
+          <p>주소: 게스트하우스</p>
+        </div>
+        <div class="card-footer">
+          <a href="detail1.html" class="btn-detail">상세보기</a>
+          <div class="btn-icon">♡</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumbnail" style="background-image: url('image/festival.jpg');"></div>
+        <div class="card-body">
+          <div class="top">
+            <span>구름농원</span>
+            <span>#축제</span>
+          </div>
+          <h2>지역축제 운영요원 (3일)</h2>
+          <p>12,000원/시간</p>
+          <p>주소: 게스트하우스</p>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn-detail">상세보기</a>
+          <div class="btn-icon">♡</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumbnail" style="background-image: url('image/grape.jpg');"></div>
+        <div class="card-body">
+          <div class="top">
+            <span>구름농원</span>
+            <span>#농가</span>
+          </div>
+          <h2>포도 수확 보조 (2일)</h2>
+          <p>11,000원/시간</p>
+          <p>주소: 게스트하우스</p>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn-detail">상세보기</a>
+          <div class="btn-icon">♡</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <a href="recruit.html" class="fab">＋</a>
+
+    <!-- 하단 네비게이션 -->
+    <nav>
+      <a href="#"><span>🏠</span>홈</a>
+      <a href="chat.html"><span>💬</span>채팅</a>
+      <a href="mypage.html"><span>👤</span>마이</a>
+    </nav>
+  </div>
+
+  <script>
+    // 홈 진입 시 서버에서 공고 불러오기
+    window.onload = () => {
+      fetch("/api/jobs")
+        .then(res => res.json())
+        .then(jobs => {
+          const list = document.getElementById("job-list");
+          jobs.forEach(job => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+              <div class="thumbnail" style="background-image: url('image/apple.jpg');"></div>
+              <div class="card-body">
+                <div class="top">
+                  <span>${job.company || "업체명 미정"}</span>
+                  <span>거리 -</span>
+                </div>
+                <h2>${job.title}</h2>
+                <p>${job.pay}</p>
+                <p>주소: ${job.address}</p>
+              </div>
+              <div class="card-footer">
+                <a href="detail.html?id=${job.id}" class="btn-detail">상세보기</a>
+                <div class="btn-icon">♡</div>
+              </div>
+            `;
+            list.prepend(card);
+          });
+        })
+        .catch(err => console.error("공고 불러오기 실패:", err));
+    };
+  </script>
+</body>
+</html>

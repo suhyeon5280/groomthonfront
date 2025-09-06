@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>채팅 목록</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .app {
+      width: 390px;
+      height: 844px;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 상단 */
+    header {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 16px;
+      border-bottom: 1px solid #eee;
+      flex-shrink: 0;
+    }
+
+    /* 채팅 목록 */
+    .chat-list {
+      flex: 1;
+      overflow-y: auto;
+      background: #fafafa;
+    }
+    .chat-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      background: #fff;
+    }
+    .chat-link {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .chat-item:hover {
+      background: #f0f0f0;
+    }
+    .chat-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ddd;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .chat-info {
+      flex: 1;
+    }
+    .chat-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .chat-preview {
+      font-size: 13px;
+      color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chat-time {
+      font-size: 12px;
+      color: #999;
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+
+    /* 하단 네비게이션 */
+    nav {
+      height: 70px;
+      border-top: 1px solid #eee;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    nav a {
+      text-align: center;
+      font-size: 12px;
+      color: #333;
+      text-decoration: none;
+    }
+    nav a span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 상단 -->
+    <header>채팅</header>
+
+    <!-- 채팅 목록 -->
+    <div class="chat-list">
+      <!--사과농원만 채팅방 이동 -->
+      <div class="chat-item">
+        <a href="chatting.html" class="chat-link">
+          <div class="chat-avatar"></div>
+          <div class="chat-info">
+            <div class="chat-title">구름농원</div>
+            <div class="chat-preview">네, 걸어서 12분 입니다.</div>
+          </div>
+          <div class="chat-time">오후 2:30</div>
+        </a>
+      </div>
+
+      <!-- 나머지는 클릭 불가 -->
+      <div class="chat-item">
+        <div class="chat-avatar"></div>
+        <div class="chat-info">
+          <div class="chat-title">지역축제 운영팀</div>
+          <div class="chat-preview">내일 9시에 오시면 됩니다!</div>
+        </div>
+        <div class="chat-time">오전 11:10</div>
+      </div>
+
+      <div class="chat-item">
+        <div class="chat-avatar"></div>
+        <div class="chat-info">
+          <div class="chat-title">배농장</div>
+          <div class="chat-preview">숙소 제공 가능합니다.</div>
+        </div>
+        <div class="chat-time">어제</div>
+      </div>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav>
+      <a href="home.html"><span>🏠</span>홈</a>
+      <a href="chat.html"><span>💬</span>채팅</a>
+      <a href="mypage.html"><span>👤</span>마이</a>
+    </nav>
+  </div>
+</body>
+</html>

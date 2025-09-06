@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>채팅</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .app {
+      width: 390px;
+      height: 844px;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 상단 */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 1px solid #eee;
+      flex-shrink: 0;
+      position: relative;
+    }
+    header a.back {
+      position: absolute;
+      left: 16px;
+      font-size: 20px;
+      text-decoration: none;
+      color: #000;
+      cursor: pointer;
+    }
+    .chat-title {
+      text-align: center;
+    }
+    .chat-sub {
+      font-size: 12px;
+      font-weight: normal;
+      color: #777;
+    }
+    .chat-status {
+      position: absolute;
+      right: 16px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* 메시지 영역 */
+    .messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+    }
+    .msg-row {
+      display: flex;
+      margin-bottom: 12px;
+    }
+    .msg {
+      max-width: 70%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+    .other .msg {
+      background: #eee;
+      color: #000;
+      border-top-left-radius: 0;
+    }
+    .me {
+      justify-content: flex-end;
+    }
+    .me .msg {
+      background: #1ec800;
+      color: #fff;
+      border-top-right-radius: 0;
+    }
+
+    /* 입력 영역 */
+    .input-bar {
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border-top: 1px solid #eee;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .input-bar input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+    }
+    .send-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      margin-left: 8px;
+      cursor: pointer;
+      color: #1ec800;
+    }
+
+    /* 하단 네비게이션 */
+    nav {
+      height: 70px;
+      border-top: 1px solid #eee;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    nav a {
+      text-align: center;
+      font-size: 12px;
+      color: #333;
+      text-decoration: none;
+    }
+    nav a span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 상단 -->
+    <header>
+      <a href="home.html" class="back">←</a>
+      <div class="chat-title">
+        구름농원<br>
+        <span class="chat-sub">사과 수확 보조 (1주)</span>
+      </div>
+      <div class="chat-status">승인 대기</div>
+    </header>
+
+    <!-- 메시지 영역 -->
+    <div class="messages" id="messages">
+      <div class="msg-row other">
+        <div class="msg">안녕하세요! 숙소는 도보 거리인가요?</div>
+      </div>
+      <div class="msg-row me">
+        <div class="msg">네, 걸어서 12분 입니다.</div>
+      </div>
+    </div>
+
+    <!-- 입력 영역 -->
+    <div class="input-bar">
+      <input type="text" id="chatInput" placeholder="메시지 보내기">
+      <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav>
+      <a href="home.html"><span>🏠</span>홈</a>
+      <a href="chat.html"><span>💬</span>채팅</a>
+      <a href="mypage.html"><span>👤</span>마이</a>
+    </nav>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const text = input.value.trim();
+      if (text === "") return;
+
+      // 메시지 박스 생성
+      const row = document.createElement("div");
+      row.className = "msg-row me";
+      const msg = document.createElement("div");
+      msg.className = "msg";
+      msg.textContent = text;
+      row.appendChild(msg);
+
+      // 메시지 추가
+      const messages = document.getElementById("messages");
+      messages.appendChild(row);
+
+      // 스크롤 하단 고정
+      messages.scrollTop = messages.scrollHeight;
+
+      // 입력창 초기화
+      input.value = "";
+    }
+  </script>
+</body>
+</html>

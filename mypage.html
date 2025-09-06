@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .app {
+      width: 390px;
+      height: 844px;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 상단 */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 1px solid #eee;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    /* 프로필 영역 */
+    .profile {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      background: #fafafa;
+    }
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #ddd;
+      margin-right: 16px;
+    }
+    .profile-info h2 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .profile-info p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* 콘텐츠 */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin: 16px 0 12px;
+    }
+
+    .card {
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .card p {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    /* 비어있을 때 박스 */
+    .empty-box {
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 12px;
+    }
+
+    /* 승인 버튼 */
+    .btn-approve {
+      background: #1ec800;
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* 설정 리스트 */
+    .settings {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      background: #fafafa;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+    .setting-item span {
+      color: #666;
+      font-size: 16px;
+    }
+
+    /* 하단 네비게이션 */
+    nav {
+      height: 70px;
+      border-top: 1px solid #eee;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    nav a {
+      text-align: center;
+      font-size: 12px;
+      color: #333;
+      text-decoration: none;
+    }
+    nav a span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+    nav .active {
+      color: #1ec800;
+      font-weight: bold;
+    }
+
+    /* 팝업 */
+    .popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .popup-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .popup-content button {
+      margin-top: 12px;
+      background: #1ec800;
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 상단 -->
+    <header>마이페이지</header>
+
+    <!-- 프로필 -->
+    <div class="profile">
+      <div class="avatar"></div>
+      <div class="profile-info">
+        <h2>홍길동</h2>
+        <p>010-1234-5678</p>
+      </div>
+    </div>
+
+    <!-- 콘텐츠 -->
+    <div class="content">
+      <!-- 지원 내역 -->
+      <div class="section-title">지원 내역</div>
+      <div id="applications">
+        <div class="empty-box">아직 지원하신 내역이 없어요.</div>
+      </div>
+
+      <!-- 지원자 현황 (고정 HTML) -->
+      <div class="section-title">지원자 현황</div>
+      <div id="applicants">
+        <div class="card">
+          <h3>사과 수확 보조</h3>
+          <p>지원자: 김철수 (010-2222-3333)</p>
+          <button class="btn-approve" onclick="approveApplicant(this)">승인하기</button>
+        </div>
+        <div class="card">
+          <h3>지역축제 운영요원</h3>
+          <p>지원자: 이영희 (010-4444-5555)</p>
+          <button class="btn-approve" onclick="approveApplicant(this)">승인하기</button>
+        </div>
+      </div>
+
+      <!-- 설정 -->
+      <div class="section-title">설정</div>
+      <div class="settings">
+        <div class="setting-item">계정 설정 <span>›</span></div>
+        <div class="setting-item">알림 설정 <span>›</span></div>
+        <div class="setting-item">즐겨찾기 <span>›</span></div>
+        <div class="setting-item">로그아웃 <span>›</span></div>
+      </div>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav>
+      <a href="home.html"><span>🏠</span>홈</a>
+      <a href="chat.html"><span>💬</span>채팅</a>
+      <a href="mypage.html" class="active"><span>👤</span>마이</a>
+    </nav>
+  </div>
+
+  <!-- 팝업 -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <p id="popup-message">승인 처리되었습니다.</p>
+      <button onclick="closePopup()">확인</button>
+    </div>
+  </div>
+
+  <script>
+    // 지원 내역 API
+    window.onload = () => {
+      fetch("/api/applications")
+        .then(res => res.json())
+        .then(applications => {
+          const container = document.getElementById("applications");
+          container.innerHTML = "";
+          if (!applications || applications.length === 0) {
+            container.innerHTML = "<div class='empty-box'>아직 지원하신 내역이 없어요.</div>";
+            return;
+          }
+          applications.forEach(app => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+              <h3>${app.jobTitle || "공고 제목 없음"}</h3>
+              <p>${app.period || "기간 미정"} · ${app.status || "승인 대기"}</p>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(err => console.error("지원 내역 불러오기 실패:", err));
+    };
+
+    // 승인 버튼 클릭
+    function approveApplicant(button) {
+      button.textContent = "승인 완료";
+      button.disabled = true;
+      showPopup("승인 처리되었습니다.");
+    }
+
+    // 팝업 열기
+    function showPopup(message) {
+      document.getElementById("popup-message").textContent = message;
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    // 팝업 닫기
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+  </script>
+</body>
+</html>
+
+
