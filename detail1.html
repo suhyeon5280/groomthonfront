@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>상세보기1</title>
+  <title>공고 상세보기</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -23,8 +23,10 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
 
+    /* 상단 */
     header {
       display: flex;
       align-items: center;
@@ -41,6 +43,7 @@
       cursor: pointer;
     }
 
+    /* 콘텐츠 */
     .content {
       flex: 1;
       overflow-y: auto;
@@ -49,11 +52,36 @@
 
     .thumbnail {
       height: 160px;
-      background-image: url('image/apple.jpg'); /* 사과 이미지 */
+      background-image: url('image/apple.jpg');
       background-size: cover;
       background-position: center;
     }
 
+    /* 탭 */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #eee;
+      background: #fff;
+      padding: 10px 0;
+    }
+    .tabs button {
+      flex: 1;
+      margin: 0 10px;
+      padding: 8px 0;
+      text-align: center;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #fff;
+    }
+    .tabs button.active {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    /* 업무 상세 */
     .info-bar {
       display: flex;
       justify-content: space-between;
@@ -83,35 +111,6 @@
       padding: 2px 8px;
       margin-right: 4px;
     }
-    .info-right {
-      font-size: 14px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid #eee;
-      background: #fff;
-      padding: 10px 0;
-    }
-    .tabs a {
-      flex: 1;
-      margin: 0 10px;
-      padding: 8px 0;
-      text-align: center;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      cursor: pointer;
-      text-decoration: none;
-      color: #000;
-    }
-    .tabs a.active {
-      background: #000;
-      color: #fff;
-      border-color: #000;
-    }
 
     .detail {
       padding: 10px 20px;
@@ -126,6 +125,46 @@
     }
     .detail-row span:first-child {
       color: #555;
+    }
+
+    /* 숙소 상세 */
+    .detail-box {
+      margin: 0 16px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .detail-row2 {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .detail-row2 span:first-child {
+      color: #666;
+    }
+    .options {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .option {
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 13px;
+      border: 1px solid #1ec800;
+      color: #1ec800;
+      background: #f0fff5;
+      font-weight: 500;
+    }
+    .rules {
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 13px;
+      color: #333;
+      min-height: 60px;
     }
 
     /* 하단 버튼 */
@@ -150,6 +189,7 @@
       text-align: center;
       text-decoration: none;
       display: inline-block;
+      border: none;   /* ✅ 테두리 제거 */
     }
     .btn-heart {
       width: 44px;
@@ -161,6 +201,63 @@
       text-align: center;
       line-height: 42px;
       cursor: pointer;
+      color: #e74c3c;
+    }
+
+    /* 팝업 공통 */
+    .popup {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 340px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    /* 지원하기 팝업 */
+    .form-row {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    .form-row label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .form-row input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .form-row input[type="checkbox"] {
+      margin-right: 6px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+      font-size: 14px;
+    }
+    .btn-submit {
+      width: 100%;
+      background: #1ec800;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 12px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -169,49 +266,142 @@
     <!-- 상단 -->
     <header>
       <a href="home.html" class="back">←</a>
+      공고 상세보기
     </header>
 
-    <!-- 스크롤 콘텐츠 -->
+    <!-- 콘텐츠 -->
     <div class="content">
-      <div class="thumbnail"></div> <!-- 사과 이미지 -->
-
-      <div class="info-bar">
-        <div class="info-left">
-          <h2>사과 수확 보조 (1주)</h2>
-          <p>12,000원/시간 · 08:00 - 17:00</p>
-          <div class="badge-row">
-            <span class="badge">거리 1.2km</span>
-            <span class="badge">중식제공</span>
-          </div>
-        </div>
-        <div class="info-right">D-3</div>
-      </div>
+      <div class="thumbnail" id="thumbnail"></div>
 
       <!-- 탭 -->
       <div class="tabs">
-        <a href="detail1.html" class="active">업무</a>
-        <a href="detail2.html">숙소</a>
+        <button id="tab-job" class="active" onclick="showTab('job')">업무</button>
+        <button id="tab-hotel" onclick="showTab('hotel')">숙소</button>
       </div>
 
-      <div class="detail">
-        <div class="detail-row"><span>모집조건</span><span>학력무관</span></div>
-        <div class="detail-row"><span>모집인원</span><span>0명</span></div>
-        <div class="detail-row"><span>업무 내용</span><span>사과 수확/운반 보조, 상자 포장</span></div>
-        <div class="detail-row"><span>근무지</span><span>경북 청송군 XX면<br>XX리</span></div>
-        <div class="detail-row"><span>일정</span><span>09/15~09/21<br>08:00~17:00 (휴게1h)</span></div>
-        <div class="detail-row"><span>식사/교통</span><span>중식 제공</span></div>
-        <div class="detail-row"><span>장비</span><span>장갑 제공</span></div>
+      <!-- 업무 상세 -->
+      <div id="job-detail">
+        <div class="info-bar">
+          <div class="info-left">
+            <h2>사과 수확 보조 (1주)</h2>
+            <p>12,000원/시간 · 08:00 - 17:00</p>
+            <div class="badge-row">
+              <span class="badge">거리 1.2km</span>
+              <span class="badge">중식제공</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail">
+          <div class="detail-row"><span>모집조건</span><span>학력무관</span></div>
+          <div class="detail-row"><span>모집인원</span><span>0명</span></div>
+          <div class="detail-row"><span>업무 내용</span><span>사과 수확/운반 보조, 상자 포장</span></div>
+          <div class="detail-row"><span>근무지</span><span>경북 청송군 XX면<br>XX리</span></div>
+          <div class="detail-row"><span>일정</span><span>09/15~09/21<br>08:00~17:00 (휴게1h)</span></div>
+          <div class="detail-row"><span>식사/교통</span><span>중식 제공</span></div>
+          <div class="detail-row"><span>장비</span><span>장갑 제공</span></div>
+        </div>
+      </div>
+
+      <!-- 숙소 상세 -->
+      <div id="hotel-detail" style="display:none;">
+        <div class="detail-box">
+          <div class="detail-row2"><span>유형</span><span>게스트하우스</span></div>
+          <div class="detail-row2"><span>비용</span><span>무료</span></div>
+          <div class="options">
+            <div class="option">조식제공</div>
+            <div class="option">금연</div>
+          </div>
+          <div class="detail-row2"><span>세부 규정</span></div>
+          <div class="rules">22시 이후에는 정숙해주세요.</div>
+        </div>
       </div>
     </div>
 
     <!-- 하단 -->
     <div class="bottom-bar">
-      <a href="apply.html" class="btn-apply">지원하기</a>
+      <button class="btn-apply" onclick="openApplyPopup()">지원하기</button>
       <div class="btn-heart">♡</div>
     </div>
+
+    <!-- 지원하기 팝업 -->
+    <div class="popup" id="apply-popup">
+      <div class="popup-content">
+        <h3>지원서 작성</h3>
+        <div class="form-row">
+          <label>기간</label>
+          <span>09/15 - 09/21</span>
+        </div>
+        <div class="form-row">
+          <label>연락처</label>
+          <input type="text" value="010-1234-4561">
+        </div>
+        <div class="form-row">
+          <input type="checkbox" id="policy">
+          <label for="policy">취소/페널티 정책을 확인했습니다</label>
+        </div>
+        <div class="summary-row">
+          <span>일일 급여</span><span><strong>45,000원</strong> (8h)</span>
+        </div>
+        <div class="summary-row">
+          <span>플랫폼 수수료</span><span>10%</span>
+        </div>
+        <div class="summary-row">
+          <span>예상 총 수입(7일)</span><span><strong>약 456,000원</strong></span>
+        </div>
+        <button class="btn-submit" onclick="submitApplication()">지원서 제출</button>
+      </div>
+    </div>
+
+    <!-- 완료 팝업 -->
+    <div class="popup" id="complete-popup">
+      <div class="popup-content">
+        <p>지원이 완료되었습니다!</p>
+        <button class="btn-submit" onclick="goHome()">확인</button>
+      </div>
+    </div>
   </div>
+
+  <script>
+    function showTab(tab) {
+      const jobBtn = document.getElementById("tab-job");
+      const hotelBtn = document.getElementById("tab-hotel");
+      const jobDetail = document.getElementById("job-detail");
+      const hotelDetail = document.getElementById("hotel-detail");
+      const thumbnail = document.getElementById("thumbnail");
+
+      if (tab === "job") {
+        jobBtn.classList.add("active");
+        hotelBtn.classList.remove("active");
+        jobDetail.style.display = "block";
+        hotelDetail.style.display = "none";
+        thumbnail.style.backgroundImage = "url('image/apple.jpg')";
+      } else {
+        hotelBtn.classList.add("active");
+        jobBtn.classList.remove("active");
+        jobDetail.style.display = "none";
+        hotelDetail.style.display = "block";
+        thumbnail.style.backgroundImage = "url('image/room.jpg')";
+      }
+    }
+
+    function openApplyPopup() {
+      document.getElementById("apply-popup").style.display = "flex";
+    }
+
+    function submitApplication() {
+      // 체크박스 확인
+      if (!document.getElementById("policy").checked) {
+        alert("정책 동의가 필요합니다.");
+        return;
+      }
+      document.getElementById("apply-popup").style.display = "none";
+      document.getElementById("complete-popup").style.display = "flex";
+    }
+
+    function goHome() {
+      window.location.href = "home.html";
+    }
+  </script>
 </body>
 </html>
-
-
-
