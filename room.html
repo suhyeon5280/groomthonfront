@@ -405,7 +405,7 @@
         price: hotelPrice
       };
 
-      fetch("http://localhost:8080/api/hotels", {
+      fetch("http://localhost:8080/api/jobs/{id}/hotel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData)
