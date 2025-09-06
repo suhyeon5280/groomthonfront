@@ -283,28 +283,27 @@
   </div>
 
   <script>
-    // 지원 내역 API 호출
+    // 지원 내역 localStorage 불러오기
     window.onload = () => {
-      fetch("/api/applications")
-        .then(res => res.json())
-        .then(applications => {
-          const container = document.getElementById("applications");
-          container.innerHTML = "";
-          if (!applications || applications.length === 0) {
-            container.innerHTML = "<div class='empty-box'>아직 지원하신 내역이 없어요.</div>";
-            return;
-          }
-          applications.forEach(app => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = `
-              <h3>${app.jobTitle || "공고 제목 없음"}</h3>
-              <p>${app.period || "기간 미정"} · ${app.status || "승인 대기"}</p>
-            `;
-            container.appendChild(card);
-          });
-        })
-        .catch(err => console.error("지원 내역 불러오기 실패:", err));
+      const container = document.getElementById("applications");
+      container.innerHTML = "";
+
+      const applications = JSON.parse(localStorage.getItem("applications") || "[]");
+
+      if (applications.length === 0) {
+        container.innerHTML = "<div class='empty-box'>아직 지원하신 내역이 없어요.</div>";
+        return;
+      }
+
+      applications.forEach(app => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${app.jobTitle || "공고 제목 없음"}</h3>
+          <p>${app.jobPeriod || "기간 미정"} · ${app.status || "승인 대기"}</p>
+        `;
+        container.appendChild(card);
+      });
     };
 
     // 승인 버튼 클릭 처리
@@ -332,5 +331,6 @@
   </script>
 </body>
 </html>
+
 
 

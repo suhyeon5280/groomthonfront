@@ -390,7 +390,6 @@
     }
 
     function submitApplication() {
-      // 체크박스 확인
       if (!document.getElementById("policy").checked) {
         alert("정책 동의가 필요합니다.");
         return;
@@ -398,38 +397,26 @@
 
       const jobTitle = document.getElementById("job-title").innerText;
       const jobPeriod = document.getElementById("popup-period").innerText;
-      const contact = document.getElementById("contact").value; // api 보내기
+      const contact = document.getElementById("contact").value;
 
-      const payload = {
+      const application = {
         jobTitle: jobTitle,
-        period: jobPeriod,
-        contact: contact
+        jobPeriod: jobPeriod,
+        contact: contact,
+        status: "승인 대기"
       };
 
-      console.log("API 전송 데이터:", payload);
+      // localStorage에 저장
+      const apps = JSON.parse(localStorage.getItem("applications") || "[]");
+      apps.push(application);
+      localStorage.setItem("applications", JSON.stringify(apps));
 
-      fetch("/api/applications", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("API 요청 실패");
-        return res.json();
-      })
-      .then(data => {
-        console.log("서버 응답:", data);
-        document.getElementById("apply-popup").style.display = "none";
-        document.getElementById("complete-popup").style.display = "flex";
-      })
-      .catch(err => {
-        console.error(err);
-        alert("지원 요청 실패");
-      });
+      document.getElementById("apply-popup").style.display = "none";
+      document.getElementById("complete-popup").style.display = "flex";
     }
 
     function goHome() {
-      window.location.href = "home.html";
+      window.location.href = "mypage.html";
     }
   </script>
 </body>
