@@ -371,14 +371,14 @@
         companyName: document.querySelector('input[placeholder="상호명 (예: 구름농원)"]').value,
         jobName: document.querySelector('input[placeholder="제목 (예: 사과 수확 보조)"]').value,
         category: document.querySelector(".category button.active")?.innerText || "",
-        jobStartDate: startDate.toISOString().split("T")[0],
-        jobEndDate: endDate ? endDate.toISOString().split("T")[0] : startDate.toISOString().split("T")[0],
+        jobStartDate: startDate.toISOString().split("T")[1],
+        jobEndDate: endDate ? endDate.toISOString().split("T")[1] : startDate.toISOString().split("T")[1],
         workTime: document.querySelector('input[placeholder="근무 시간 (예: 08:00 ~ 17:00)"]').value,
         jobLocation: document.getElementById("addressInput").value,
         jobLocationdetail: document.querySelector('input[placeholder="상세 주소"]').value,
-        recruitNumber: parseInt(document.querySelector('input[placeholder="예: 5"]')).value,
+        recruitNumber: parseInt(document.querySelector('input[placeholder="예: 5"]').value, 10) || 0,
         wageType: document.querySelector(".row .toggle-btn.active")?.innerText || "",
-        pay: parseInt(document.querySelector('input[placeholder="예: 10000"]')).value,
+        pay: parseInt(document.querySelector('input[placeholder="예: 10000"]').value, 10) || 0,
         benefits: []
       };
 
