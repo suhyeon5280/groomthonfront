@@ -328,6 +328,10 @@
     function closePopup() {
       document.getElementById("popup").style.display = "none";
     }
+
+    window.onload = () => {
+      localStorage.removeItem("applications");
+    };
   </script>
 </body>
 </html>
