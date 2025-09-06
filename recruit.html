@@ -388,7 +388,7 @@
       });
 
       //JSON 전송
-      fetch("/api/jobs/draft", { 
+      fetch("http://localhost:8080/api/jobs/draft", { 
         method: "POST", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(jobData) 
