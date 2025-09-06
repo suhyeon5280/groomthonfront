@@ -396,7 +396,6 @@
       const hotelRules = document.getElementById("rules").value;
       const hotelPrice = parseInt(document.getElementById("price").value, 10) || 0;
 
-      // ✅ 이미지 제거 → imageFiles, readFilesAsBase64 전부 삭제
       const postData = {
         hotelType: hoteltype,
         nonSmoking: canSmoke,
@@ -405,7 +404,11 @@
         price: hotelPrice
       };
 
-      fetch("http://localhost:8080/api/jobs/{id}/hotel", {
+      // ✅ URL 파라미터에서 id 추출
+      const urlParams = new URLSearchParams(window.location.search);
+      const jobId = urlParams.get("id");
+
+      fetch(`http://localhost:8080/api/jobs/${jobId}/hotel`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData)
@@ -416,14 +419,13 @@
         })
         .then(data => {
           console.log("서버 응답:", data);
-          alert("숙소 정보가 등록되었습니다!");
+          showPopup("숙소 정보가 등록되었습니다!");
         })
         .catch(err => {
           console.error(err);
-          alert("등록 실패");
+          showPopup("등록 실패");
         });
     }
-
   </script>
 </body>
 </html>
