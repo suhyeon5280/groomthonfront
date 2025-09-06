@@ -43,10 +43,10 @@
     }
     .filters button {
       flex: 1;
-      padding: 6px 0;         /* 버튼 높이 줄임 */
+      padding: 6px 0;
       border: 1px solid #ccc;
-      border-radius: 14px;    /* 더 작게 */
-      font-size: 12px;        /* 글자 크기도 작게 */
+      border-radius: 14px;
+      font-size: 12px;
       background: #fff;
       cursor: pointer;
     }
@@ -242,32 +242,38 @@
   </div>
 
   <script>
+    // 새로운 카드 생성 함수
+    function createCard(job) {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="thumbnail" style="background-image: url('image/apple.jpg');"></div>
+        <div class="card-body">
+          <div class="top">
+            <span>${job.companyName || "업체명 미정"}</span>
+            <span>#${job.category || "기타"}</span>
+          </div>
+          <h2>${job.jobName || "제목 없음"}</h2>
+          <p>주소: ${job.jobLocation || "-"}</p>
+        </div>
+        <div class="card-footer">
+          <a href="detail.html?id=${job.id || ""}" class="btn-detail">상세보기</a>
+          <div class="btn-icon">♡</div>
+        </div>
+      `;
+      return card;
+    }
+
     // 홈 진입 시 서버에서 공고 불러오기
     window.onload = () => {
+      const list = document.getElementById("job-list");
+
       fetch("/api/jobs")
         .then(res => res.json())
         .then(jobs => {
-          const list = document.getElementById("job-list");
           jobs.forEach(job => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = `
-              <div class="thumbnail" style="background-image: url('image/apple.jpg');"></div>
-              <div class="card-body">
-                <div class="top">
-                  <span>${job.company || "업체명 미정"}</span>
-                  <span>거리 -</span>
-                </div>
-                <h2>${job.title}</h2>
-                <p>${job.pay}</p>
-                <p>주소: ${job.address}</p>
-              </div>
-              <div class="card-footer">
-                <a href="detail.html?id=${job.id}" class="btn-detail">상세보기</a>
-                <div class="btn-icon">♡</div>
-              </div>
-            `;
-            list.prepend(card);
+            const card = createCard(job);
+            list.prepend(card); // ✅ 위쪽(최상단)에 추가
           });
         })
         .catch(err => console.error("공고 불러오기 실패:", err));
