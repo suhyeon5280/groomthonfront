@@ -327,7 +327,7 @@
     function selectSingle(button){ button.parentNode.querySelectorAll(".toggle-btn").forEach(btn=>btn.classList.remove("active")); button.classList.add("active"); }
     function selectMulti(button){ button.classList.toggle("active"); }
 
-    const dummyAddresses = ["경기도 용인시 처인구","경기도 용인시 남사","경기도 용인시 수지구","경기도 용인시 기흥구","서울특별시 강남구 테헤란로","부산광역시 해운대구 센텀로"];
+    const dummyAddresses = ["경기도 용인시 처인구","경기도 용인시 남사","경기도 용인시 수지구","경기도 용인시 기흥구","서울특별시 서대문구 가좌로","서울특별시 강남구 테헤란로","부산광역시 해운대구 센텀로"];
     function showSuggestions(){
       const input=document.getElementById("addressInput");
       const suggestionsBox=document.getElementById("suggestions");
