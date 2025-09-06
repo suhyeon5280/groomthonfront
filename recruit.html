@@ -359,45 +359,48 @@
     }
 
     // 데이터 전송
+// 데이터 전송
     function submitData(){
       if(!startDate){
         showPopup("날짜를 선택해주세요.");
         return;
       }
 
-      const formData = new FormData();
-      formData.append("company", document.querySelector('input[placeholder="상호명 (예: 구름농원)"]').value);
-      formData.append("title", document.querySelector('input[placeholder="제목 (예: 사과 수확 보조)"]').value);
-      const category = document.querySelector(".category button.active")?.innerText || "";
-      formData.append("category", category);
-      formData.append("startDate", startDate.toISOString().split("T")[0]);
-      formData.append("endDate", endDate ? endDate.toISOString().split("T")[0] : startDate.toISOString().split("T")[0]);
-      formData.append("workTime", document.querySelector('input[placeholder="근무 시간 (예: 08:00 ~ 17:00)"]').value);
-      formData.append("address", document.getElementById("addressInput").value);
-      formData.append("detailAddress", document.querySelector('input[placeholder="상세 주소"]').value);
-      formData.append("people", document.querySelector('input[placeholder="예: 5명"]').value);
-      formData.append("wageType", document.querySelector(".row .toggle-btn.active")?.innerText || "");
-      formData.append("wage", document.querySelector('input[placeholder="예: 10,000원 / 시간"]').value);
+      //JSON 객체 생성
+      const jobData = {
+        company: document.querySelector('input[placeholder="상호명 (예: 구름농원)"]').value,
+        title: document.querySelector('input[placeholder="제목 (예: 사과 수확 보조)"]').value,
+        category: document.querySelector(".category button.active")?.innerText || "",
+        startDate: startDate.toISOString().split("T")[0],
+        endDate: endDate ? endDate.toISOString().split("T")[0] : startDate.toISOString().split("T")[0],
+        workTime: document.querySelector('input[placeholder="근무 시간 (예: 08:00 ~ 17:00)"]').value,
+        address: document.getElementById("addressInput").value,
+        detailAddress: document.querySelector('input[placeholder="상세 주소"]').value,
+        people: document.querySelector('input[placeholder="예: 5명"]').value,
+        wageType: document.querySelector(".row .toggle-btn.active")?.innerText || "",
+        wage: document.querySelector('input[placeholder="예: 10,000원 / 시간"]').value,
+        benefits: []
+      };
 
-      const benefits = [];
       document.querySelectorAll('.section .toggle-group .toggle-btn.active').forEach(btn=>{
-        if(btn.innerText.includes("중식")) benefits.push("중식 제공");
-        if(btn.innerText.includes("교통")) benefits.push("교통비 지원");
+        if(btn.innerText.includes("중식")) jobData.benefits.push("중식 제공");
+        if(btn.innerText.includes("교통")) jobData.benefits.push("교통비 지원");
       });
-      formData.append("benefits", benefits.join(","));
 
-      const imageFile = document.getElementById("imageUpload").files[0];
-      if(imageFile){ formData.append("image", imageFile); }
-
-      fetch("/api/jobs/draft", { method: "POST", body: formData })
+      //JSON 전송
+      fetch("/api/jobs/draft", { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(jobData) 
+      })
       .then(res=>{ if(!res.ok) throw new Error("서버 오류"); return res.json(); })
       .then(data=>{
         console.log("서버 응답:", data);
-        showPopup("공고가 등록되었습니다!", "success");
+        showPopup("업무가 등록되었습니다!", "success");
       })
       .catch(err=>{
         console.error(err);
-        showPopup("공고 등록 실패");
+        showPopup("업무 등록 실패");
       });
     }
 
