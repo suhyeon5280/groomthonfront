@@ -390,11 +390,11 @@
     }
 
     function submitPost() {
-      const type = document.querySelector(".toggle-group .toggle-btn.active")?.innerText || "";
-      const nonSmoking = document.getElementById("nonSmoking").checked;
-      const breakfast = document.getElementById("breakfast").checked;
-      const rules = document.getElementById("rules").value;
-      const price = document.getElementById("price").value;
+      const hoteltype = document.querySelector(".toggle-group .toggle-btn.active")?.innerText || "";
+      const canSmoke = document.getElementById("nonSmoking").checked;
+      const wantbreackfast = document.getElementById("breakfast").checked;
+      const hotelRules = document.getElementById("rules").value;
+      const hotelPrice = document.getElementById("price").value;
 
       const imageFiles = document.getElementById("accommodationImage").files;
 
