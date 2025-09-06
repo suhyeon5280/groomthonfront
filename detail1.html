@@ -189,7 +189,7 @@
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      border: none;   /* ✅ 테두리 제거 */
+      border: none;
     }
     .btn-heart {
       width: 44px;
@@ -283,7 +283,7 @@
       <div id="job-detail">
         <div class="info-bar">
           <div class="info-left">
-            <h2>사과 수확 보조 (1주)</h2>
+            <h2 id="job-title">사과 수확 보조 (1주)</h2>
             <p>12,000원/시간 · 08:00 - 17:00</p>
             <div class="badge-row">
               <span class="badge">거리 1.2km</span>
@@ -297,7 +297,7 @@
           <div class="detail-row"><span>모집인원</span><span>0명</span></div>
           <div class="detail-row"><span>업무 내용</span><span>사과 수확/운반 보조, 상자 포장</span></div>
           <div class="detail-row"><span>근무지</span><span>경북 청송군 XX면<br>XX리</span></div>
-          <div class="detail-row"><span>일정</span><span>09/15~09/21<br>08:00~17:00 (휴게1h)</span></div>
+          <div class="detail-row"><span>일정</span><span id="job-period">09/15~09/21<br>08:00~17:00 (휴게1h)</span></div>
           <div class="detail-row"><span>식사/교통</span><span>중식 제공</span></div>
           <div class="detail-row"><span>장비</span><span>장갑 제공</span></div>
         </div>
@@ -330,11 +330,11 @@
         <h3>지원서 작성</h3>
         <div class="form-row">
           <label>기간</label>
-          <span>09/15 - 09/21</span>
+          <span id="popup-period">09/15 - 09/21</span>
         </div>
         <div class="form-row">
           <label>연락처</label>
-          <input type="text" value="010-1234-4561">
+          <input type="text" id="contact" value="010-1234-4561">
         </div>
         <div class="form-row">
           <input type="checkbox" id="policy">
@@ -395,8 +395,37 @@
         alert("정책 동의가 필요합니다.");
         return;
       }
-      document.getElementById("apply-popup").style.display = "none";
-      document.getElementById("complete-popup").style.display = "flex";
+
+      const jobTitle = document.getElementById("job-title").innerText;
+      const jobPeriod = document.getElementById("popup-period").innerText;
+      const contact = document.getElementById("contact").value; // api 보내기
+
+      const payload = {
+        jobTitle: jobTitle,
+        period: jobPeriod,
+        contact: contact
+      };
+
+      console.log("API 전송 데이터:", payload);
+
+      fetch("/api/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("API 요청 실패");
+        return res.json();
+      })
+      .then(data => {
+        console.log("서버 응답:", data);
+        document.getElementById("apply-popup").style.display = "none";
+        document.getElementById("complete-popup").style.display = "flex";
+      })
+      .catch(err => {
+        console.error(err);
+        alert("지원 요청 실패");
+      });
     }
 
     function goHome() {
