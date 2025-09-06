@@ -237,7 +237,7 @@
         <div class="row">
           <div class="col">
             <label>필요 인원</label>
-            <input type="text" placeholder="예: 5명">
+            <input type="text" placeholder="예: 5">
           </div>
           <div class="col">
             <label>임금 방식</label>
@@ -248,7 +248,7 @@
           </div>
         </div>
         <label>금액</label>
-        <input type="text" placeholder="예: 10,000원 / 시간">
+        <input type="text" placeholder="예: 10000">
         <label>식사 / 교통</label>
         <div class="toggle-group">
           <button type="button" class="toggle-btn" onclick="selectMulti(this)">중식 제공</button>
@@ -345,7 +345,7 @@
       suggestionsBox.style.display="block";
     }
 
-    // ✅ 팝업 함수
+    // 팝업 함수
     function showPopup(message, callback){
       document.getElementById("popupMessage").innerText = message;
       const popup = document.getElementById("popup");
@@ -368,17 +368,17 @@
 
       //JSON 객체 생성
       const jobData = {
-        company: document.querySelector('input[placeholder="상호명 (예: 구름농원)"]').value,
-        title: document.querySelector('input[placeholder="제목 (예: 사과 수확 보조)"]').value,
+        companyName: document.querySelector('input[placeholder="상호명 (예: 구름농원)"]').value,
+        jobName: document.querySelector('input[placeholder="제목 (예: 사과 수확 보조)"]').value,
         category: document.querySelector(".category button.active")?.innerText || "",
         startDate: startDate.toISOString().split("T")[0],
         endDate: endDate ? endDate.toISOString().split("T")[0] : startDate.toISOString().split("T")[0],
         workTime: document.querySelector('input[placeholder="근무 시간 (예: 08:00 ~ 17:00)"]').value,
         address: document.getElementById("addressInput").value,
         detailAddress: document.querySelector('input[placeholder="상세 주소"]').value,
-        people: document.querySelector('input[placeholder="예: 5명"]').value,
+        people: parseInt(document.querySelector('input[placeholder="예: 5"]')).value,
         wageType: document.querySelector(".row .toggle-btn.active")?.innerText || "",
-        wage: document.querySelector('input[placeholder="예: 10,000원 / 시간"]').value,
+        wage: parseInt(document.querySelector('input[placeholder="예: 10000"]')).value,
         benefits: []
       };
 
