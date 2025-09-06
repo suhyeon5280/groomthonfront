@@ -27,6 +27,12 @@
     .logo {
       width: 300px;
       height: auto;
+      animation: fadeInOut 2.5s ease-in-out infinite;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: scale(0.95); }
+      50% { opacity: 1; transform: scale(1.05); }
+      100% { opacity: 0; transform: scale(0.95); }
     }
   </style>
 </head>
@@ -34,5 +40,12 @@
   <div class="app">
     <img src="image/image 13.png" alt="로컬워커스 로고" class="logo">
   </div>
+
+  <script>
+    // 3초 후 home.html로 이동
+    setTimeout(() => {
+      window.location.href = "home.html";
+    }, 3000);
+  </script>
 </body>
 </html>
