@@ -106,16 +106,32 @@
       margin-bottom: 12px;
     }
 
-    /* 승인 버튼 */
-    .btn-approve {
-      background: #1ec800;
-      border: none;
-      color: #fff;
+    /* 버튼 */
+    .btn-row {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-chat, .btn-approve {
+      flex: 1;
       padding: 8px 14px;
       border-radius: 8px;
       font-size: 13px;
       font-weight: bold;
       cursor: pointer;
+    }
+    .btn-chat {
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #333;
+    }
+    .btn-approve {
+      background: #1ec800;
+      border: none;
+      color: #fff;
+    }
+    .btn-approve:disabled {
+      background: #aaa;
+      cursor: not-allowed;
     }
 
     /* 설정 리스트 */
@@ -219,18 +235,24 @@
         <div class="empty-box">아직 지원하신 내역이 없어요.</div>
       </div>
 
-      <!-- 지원자 현황 (고정 HTML) -->
+      <!-- 지원자 현황 -->
       <div class="section-title">지원자 현황</div>
       <div id="applicants">
         <div class="card">
           <h3>사과 수확 보조</h3>
           <p>지원자: 김철수 (010-2222-3333)</p>
-          <button class="btn-approve" onclick="approveApplicant(this)">승인하기</button>
+          <div class="btn-row">
+            <button class="btn-chat" onclick="goChat()">대화하기</button>
+            <button class="btn-approve" onclick="approveApplicant(this)">승인하기</button>
+          </div>
         </div>
         <div class="card">
           <h3>지역축제 운영요원</h3>
           <p>지원자: 이영희 (010-4444-5555)</p>
-          <button class="btn-approve" onclick="approveApplicant(this)">승인하기</button>
+          <div class="btn-row">
+            <button class="btn-chat" onclick="goChat()">대화하기</button>
+            <button class="btn-approve" onclick="approveApplicant(this)">승인하기</button>
+          </div>
         </div>
       </div>
 
@@ -261,7 +283,7 @@
   </div>
 
   <script>
-    // 지원 내역 API
+    // 지원 내역 API 호출
     window.onload = () => {
       fetch("/api/applications")
         .then(res => res.json())
@@ -285,11 +307,16 @@
         .catch(err => console.error("지원 내역 불러오기 실패:", err));
     };
 
-    // 승인 버튼 클릭
+    // 승인 버튼 클릭 처리
     function approveApplicant(button) {
       button.textContent = "승인 완료";
       button.disabled = true;
       showPopup("승인 처리되었습니다.");
+    }
+
+    // 대화하기 버튼 → chatting.html 이동
+    function goChat() {
+      window.location.href = "chatting.html";
     }
 
     // 팝업 열기
